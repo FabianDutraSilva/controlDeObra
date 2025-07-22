@@ -55,6 +55,7 @@ Thumbs.db
 .payload        # si usas almacenamiento local de Payload
 .payload-data   # cachés internas
 /media          # si alguna vez cambias a file-system uploads (ahora usas Cloudinary)
+/media/
 
 # TypeScript y Next.js
 *.tsbuildinfo
