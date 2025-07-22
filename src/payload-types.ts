@@ -175,9 +175,9 @@ export interface Project {
   name: string;
   address?: string | null;
   contact?: string | null;
-  budgetUSD?: number | null;
-  budgetUYU?: number | null;
-  contingencyPct?: number | null;
+  budgetUSD: number;
+  budgetUYU: number;
+  contingencyPct: number;
   updatedAt: string;
   createdAt: string;
 }

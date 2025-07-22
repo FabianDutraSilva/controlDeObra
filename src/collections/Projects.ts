@@ -1,5 +1,6 @@
 // src/collections/Projects.ts
-import type { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload'
+import { NumberField } from '@nouance/payload-better-fields-plugin/Number'
 
 const Projects: CollectionConfig = {
   slug: 'projects',
@@ -19,13 +20,41 @@ const Projects: CollectionConfig = {
   },
   timestamps: true,
   fields: [
-    { name: 'name',    type: 'text',   required: true },
-    { name: 'address', type: 'text' },
-    { name: 'contact', type: 'text' },
-    { name: 'budgetUSD',   type: 'number' },
-    { name: 'budgetUYU',   type: 'number' },
-    { name: 'contingencyPct', type: 'number' },
+    { name: 'name',            type: 'text', required: true },
+    { name: 'address',         type: 'text' },
+    { name: 'contact',         type: 'text' },
+    // Budget USD with formatting
+    ...NumberField(
+      { name: 'budgetUSD', label: 'Budget (USD)', required: true },
+      {
+        thousandSeparator: '.',
+        decimalSeparator: ',',
+        decimalScale: 2,
+        fixedDecimalScale: true,
+      }
+    ),
+    // Budget UYU with formatting
+    ...NumberField(
+      { name: 'budgetUYU', label: 'Budget (UYU)', required: true },
+      {
+        thousandSeparator: '.',
+        decimalSeparator: ',',
+        decimalScale: 2,
+        fixedDecimalScale: true,
+      }
+    ),
+    // Contingency % with formatting (no decimals or maybe one)
+    ...NumberField(
+      { name: 'contingencyPct', label: 'Contingency (%)', required: true },
+      {
+        thousandSeparator: '',
+        decimalSeparator: '.',
+        decimalScale: 2,
+        fixedDecimalScale: true,
+        suffix: '%',
+      }
+    ),
   ],
-};
+}
 
-export default Projects;
+export default Projects
