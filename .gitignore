@@ -1,0 +1,69 @@
+# Dependencias y lockfiles
+/node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+/yarn.lock
+/package-lock.json
+/pnpm-lock.yaml
+
+# Entornos locales y variables secretas
+.env
+.env.*       # .env.development, .env.production, etc.
+.env*.local # .env.local, .env.test.local
+
+# Archivos de la IDE/editor
+/.idea/
+/.vscode/
+/*.suo
+/*.ntvs*
+/*.njsproj
+/*.sln
+
+# Builds y artefactos
+/.next/
+/out/
+/build/
+/dist/
+/.parcel-cache/
+/.cache/
+/coverage/
+/test-results/
+/blob-report/
+/playwright-report/
+/playwright/.cache/
+
+# Logs y reportes de error
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Claves, certificados y archivos sensibles
+*.pem
+*.key
+*.crt
+*.cer
+
+# Payload CMS
+.payload        # si usas almacenamiento local de Payload
+.payload-data   # cachés internas
+/media          # si alguna vez cambias a file-system uploads (ahora usas Cloudinary)
+
+# TypeScript y Next.js
+*.tsbuildinfo
+next-env.d.ts
+
+# Vercel / Netlify / otros despliegues
+.vercel
+.netlify
+
+# Docker
+docker-compose.override.yml
+docker-compose.local.yml
