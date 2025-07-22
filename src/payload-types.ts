@@ -69,6 +69,11 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    projects: Project;
+    costcodes: Costcode;
+    subcategories: Subcategory;
+    budgets: Budget;
+    expenses: Expense;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -77,6 +82,11 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    costcodes: CostcodesSelect<false> | CostcodesSelect<true>;
+    subcategories: SubcategoriesSelect<false> | SubcategoriesSelect<true>;
+    budgets: BudgetsSelect<false> | BudgetsSelect<true>;
+    expenses: ExpensesSelect<false> | ExpensesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -158,6 +168,83 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: string;
+  name: string;
+  address?: string | null;
+  contact?: string | null;
+  budgetUSD?: number | null;
+  budgetUYU?: number | null;
+  contingencyPct?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "costcodes".
+ */
+export interface Costcode {
+  id: string;
+  label: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subcategories".
+ */
+export interface Subcategory {
+  id: string;
+  name: string;
+  costCode: string | Costcode;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "budgets".
+ */
+export interface Budget {
+  id: string;
+  project: string | Project;
+  costCode: string | Costcode;
+  amountUSD: number;
+  amountUYU: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expenses".
+ */
+export interface Expense {
+  id: string;
+  project: string | Project;
+  costCode: string | Costcode;
+  subCategory?: (string | null) | Subcategory;
+  invoiceNumber: string;
+  amountOriginal: number;
+  currency?: ('USD' | 'UYU') | null;
+  rateUSD?: number | null;
+  amountUSD?: number | null;
+  ivaPct?: number | null;
+  providerName?: string | null;
+  providerTaxId?: string | null;
+  invoiceDate?: string | null;
+  dueDate?: string | null;
+  paidDate?: string | null;
+  /**
+   * PDF or PNG ≤ 1 MB
+   */
+  attachment: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -170,6 +257,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'costcodes';
+        value: string | Costcode;
+      } | null)
+    | ({
+        relationTo: 'subcategories';
+        value: string | Subcategory;
+      } | null)
+    | ({
+        relationTo: 'budgets';
+        value: string | Budget;
+      } | null)
+    | ({
+        relationTo: 'expenses';
+        value: string | Expense;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -252,6 +359,75 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  name?: T;
+  address?: T;
+  contact?: T;
+  budgetUSD?: T;
+  budgetUYU?: T;
+  contingencyPct?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "costcodes_select".
+ */
+export interface CostcodesSelect<T extends boolean = true> {
+  label?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "subcategories_select".
+ */
+export interface SubcategoriesSelect<T extends boolean = true> {
+  name?: T;
+  costCode?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "budgets_select".
+ */
+export interface BudgetsSelect<T extends boolean = true> {
+  project?: T;
+  costCode?: T;
+  amountUSD?: T;
+  amountUYU?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "expenses_select".
+ */
+export interface ExpensesSelect<T extends boolean = true> {
+  project?: T;
+  costCode?: T;
+  subCategory?: T;
+  invoiceNumber?: T;
+  amountOriginal?: T;
+  currency?: T;
+  rateUSD?: T;
+  amountUSD?: T;
+  ivaPct?: T;
+  providerName?: T;
+  providerTaxId?: T;
+  invoiceDate?: T;
+  dueDate?: T;
+  paidDate?: T;
+  attachment?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

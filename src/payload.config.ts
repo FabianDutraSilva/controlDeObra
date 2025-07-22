@@ -11,6 +11,12 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 
+import Projects from './collections/Projects'
+import CostCodes from './collections/CostCodes'
+import SubCategories from './collections/SubCategories'
+import Budgets from './collections/Budgets'
+import Expenses from './collections/Expenses'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -21,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Projects, CostCodes, SubCategories, Budgets, Expenses],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
