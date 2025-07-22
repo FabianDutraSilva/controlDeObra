@@ -48,7 +48,7 @@ const Projects: CollectionConfig = {
       { name: 'contingencyPct', label: 'Contingency (%)', required: true },
       {
         thousandSeparator: '',
-        decimalSeparator: '.',
+        decimalSeparator: ',',
         decimalScale: 2,
         fixedDecimalScale: true,
         suffix: '%',

@@ -74,6 +74,7 @@ export interface Config {
     subcategories: Subcategory;
     budgets: Budget;
     expenses: Expense;
+    rates: Rate;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,6 +88,7 @@ export interface Config {
     subcategories: SubcategoriesSelect<false> | SubcategoriesSelect<true>;
     budgets: BudgetsSelect<false> | BudgetsSelect<true>;
     expenses: ExpensesSelect<false> | ExpensesSelect<true>;
+    rates: RatesSelect<false> | RatesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -227,19 +229,29 @@ export interface Expense {
   subCategory?: (string | null) | Subcategory;
   invoiceNumber: string;
   amountOriginal: number;
-  currency?: ('USD' | 'UYU') | null;
+  currency: 'USD' | 'UYU';
   rateUSD?: number | null;
   amountUSD?: number | null;
-  ivaPct?: number | null;
+  ivaPct: number;
   providerName?: string | null;
   providerTaxId?: string | null;
   invoiceDate?: string | null;
   dueDate?: string | null;
   paidDate?: string | null;
   /**
-   * PDF or PNG ≤ 1 MB
+   * PDF o PNG ≤ 1 MB
    */
   attachment: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rates".
+ */
+export interface Rate {
+  id: string;
+  rateUYU: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -277,6 +289,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'expenses';
         value: string | Expense;
+      } | null)
+    | ({
+        relationTo: 'rates';
+        value: string | Rate;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -426,6 +442,15 @@ export interface ExpensesSelect<T extends boolean = true> {
   dueDate?: T;
   paidDate?: T;
   attachment?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rates_select".
+ */
+export interface RatesSelect<T extends boolean = true> {
+  rateUYU?: T;
   updatedAt?: T;
   createdAt?: T;
 }

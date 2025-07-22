@@ -16,6 +16,7 @@ import CostCodes from './collections/CostCodes'
 import SubCategories from './collections/SubCategories'
 import Budgets from './collections/Budgets'
 import Expenses from './collections/Expenses'
+import Rates from './collections/Rates'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,7 +28,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Projects, CostCodes, SubCategories, Budgets, Expenses],
+  collections: [Users, Media, Projects, CostCodes, SubCategories, Budgets, Expenses, Rates],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
